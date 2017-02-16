@@ -1,9 +1,8 @@
-version: '2'
-services:
-  web:
-    build: .
-    ports:
-     - "5000:5000"
-    volumes:
-     - .:/code
-  
+web:
+  build: .
+  volumes:
+    - "./app:/usr/src/app"
+  ports:
+    - "8080:8080"
+
+    
