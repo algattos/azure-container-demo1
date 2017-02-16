@@ -23,8 +23,12 @@ app.use(stylus.middleware(
 ))
 app.use(express.static(__dirname + '/public'))
 
+// The app section to present the index
 app.get('/', function (req, res) {
-  res.end('Hi there!')
+  res.render('index',
+  { title : 'Home' }
+  )
 })
+
 app.listen(PORT);
 console.log('Running on http://localhost:' + PORT);
