@@ -1,15 +1,30 @@
 'use strict';
 
-const express = require('express');
+const express = require('express')
+  , stylus = require('stylus')
+  , nib = require('nib');
 
 // Constants
 const PORT = 8080;
 
 // App
-const app = express();
-app.get('/', function (req, res) {
-  res.send('Hello world\n');
-});
+var app = express()
+function compile(str, path) {
+  return stylus(str)
+    .set('filename', path)
+    .use(nib())
+}
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jade')
+app.use(stylus.middleware(
+  { src: __dirname + '/public'
+  , compile: compile
+  }
+))
+app.use(express.static(__dirname + '/public'))
 
+app.get('/', function (req, res) {
+  res.end('Hi there!')
+})
 app.listen(PORT);
 console.log('Running on http://localhost:' + PORT);
